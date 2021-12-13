@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
-from app.models.PredictionRequest import PredictionRequest
-from app.services.Prediction import Prediction
+from app.classes.PredictionRequest import PredictionRequest
+from app.services.PredictionService import PredictionService
 
 
 def create_app():
@@ -13,7 +13,7 @@ app = create_app()
 def predict():
     body = request.get_json(force=True)
     pred_request = PredictionRequest(body['id_client'], body['images'], body['models'])
-    response = Prediction().predict(pred_request)
+    response = PredictionService().predict(pred_request)
     print(response)
     return jsonify(response)
 

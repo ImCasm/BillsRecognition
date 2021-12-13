@@ -1,13 +1,17 @@
-from app.models import ImageConverter
-from app.models.Model import Model
+from app.classes import ImageConverter
+from app.classes.Model import Model
+from app.classes.Prediction import Prediction
+import cv2
 
-class Prediction:
+
+class PredictionService:
     def __init__(self):
-        self.models =  [
-            Model(1, 'models/model1'),
-            Model(2, 'models/model2'),
-            Model(3, 'models/model3')
+        self.models = [
+            Model(1, 'app/models/model1.h5'),
+            Model(2, 'app/models/model2.h5'),
+            Model(3, 'app/models/model3.h5')
         ]
+        self.classes = [1000, 2000, 5000, 100000, 200000]
 
     def predict(self, request):
         results = []
@@ -31,6 +35,8 @@ class Prediction:
             'results': results
         }
 
-    def predict_single(self, model, image):
-        print(image)
-        return 0
+    def predict_single(self, model, image_path):
+        model = Prediction(model, 256, 256)
+        image = cv2.imread(image_path)
+        result_class = model.predecir(image)
+        return self.classes[result_class]
