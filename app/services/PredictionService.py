@@ -11,7 +11,7 @@ class PredictionService:
             Model(2, 'app/models/model2.h5'),
             Model(3, 'app/models/model3.h5')
         ]
-        self.classes = [1000, 2000, 5000, 100000, 200000]
+        self.classes = [1000, 2000, 5000, 10000, 20000]
 
     def predict(self, request):
         results = []

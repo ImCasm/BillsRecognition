@@ -11,11 +11,18 @@ app = create_app()
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    body = request.get_json(force=True)
-    pred_request = PredictionRequest(body['id_client'], body['images'], body['models'])
-    response = PredictionService().predict(pred_request)
-    print(response)
-    return jsonify(response)
+    try:
+        body = request.get_json(force=True)
+        pred_request = PredictionRequest(body['id_client'], body['images'], body['models'])
+        response = PredictionService().predict(pred_request)
+        print(response)
+        return jsonify(response)
+    except:
+        resp = {
+            'state': "error",
+            'message': "Error al realizar las predicciones"
+        }
+        return jsonify(resp), 400, {'ContentType': 'application/json'}
 
 
 if __name__ == '__main__':
