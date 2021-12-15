@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+
+from app.classes.Prediction import Prediction
 from app.classes.PredictionRequest import PredictionRequest
 from app.services.PredictionService import PredictionService
 
@@ -27,3 +29,5 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
